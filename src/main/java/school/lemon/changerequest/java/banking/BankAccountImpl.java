@@ -106,7 +106,10 @@ public class BankAccountImpl implements BankAccount {
      */
     @Override
     public void withdraw(double sum) throws IllegalArgumentException {
-
+        if (sum < 0 || sum > balance) {
+            throw new IllegalArgumentException(String.format(" insufficient funds on the account %d", sum));
+        }
+        balance = balance - sum;
     }
 
     /**
@@ -117,7 +120,10 @@ public class BankAccountImpl implements BankAccount {
      */
     @Override
     public void deposit(double sum) throws IllegalArgumentException {
-
+        if (sum < 0) {
+            throw new IllegalArgumentException(String.format(" insufficient funds on the account %d", sum));
+        }
+        balance = balance + sum;
     }
 
     /**
@@ -126,6 +132,6 @@ public class BankAccountImpl implements BankAccount {
      */
     @Override
     public void addInterest() {
-
+        balance = balance + (balance * rate / 100);
     }
 }
