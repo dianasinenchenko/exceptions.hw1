@@ -134,4 +134,8 @@ public class BankAccountImpl implements BankAccount {
     public void addInterest() {
         balance = balance + (balance * rate / 100);
     }
+
+    public String ToString() {
+        return String.format("Account # %1$d,($ %2$d)", index, balance);
+    }
 }
