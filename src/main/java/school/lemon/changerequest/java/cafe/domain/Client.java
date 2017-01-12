@@ -1,7 +1,5 @@
 package school.lemon.changerequest.java.cafe.domain;
 
-import school.lemon.changerequest.java.cafe.exceptions.ClientException;
-
 import java.util.Random;
 
 public class Client {
@@ -12,26 +10,42 @@ public class Client {
     private final Random random = new Random();
 
     public void drinkCoffee(Drink drink) throws ClientException {
-        if (drink.getDrinkType() != DrinkType.COFFEE) {
-            throw new ClientException(
-                    String.format("Tastes like a bla bla %d", drink.getDrinkType()));
+        if (drink.getDrinkType() != DrinkType.COFFEE)
+            throw new ClientException(String.format("You wont %s ? are you sure ", drink.getDrinkType()));
 
-        } else if (drink.getTemperature() < LOWEST_TEMPERATURE) {
-            throw new ClientException(
-                    String.format("Looks like it's too cold... "));
+        else if (drink.getTemperature() < LOWEST_TEMPERATURE)
+            throw new ClientException(String.format("Looks like it's too cold... %d", drink.getTemperature()));
 
-        } else if (drink.getTemperature() > HIGHEST_TEMPERATURE) {
-            throw new ClientException(
-                    String.format("Looks like it's too hot... "));
+        else if (drink.getTemperature() > HIGHEST_TEMPERATURE)
+            throw new ClientException(String.format("Looks like it's too hot... %d", drink.getTemperature()));
 
-        } else if (random.nextInt(100) < 10) {
-            throw new ClientException(
-                    String.format("I don't like your Cafe!"));
+        else if (random.nextInt(100) < 10) throw new ClientException(String.format("I don't like your Cafe!"));
 
-        } else {
-            throw new ClientException(
-                    String.format("Delicious, thank you."));
-                  }
+        else {
+            throw new ClientException(String.format("Delicious, thank you."));
+        }
+    }
+
+
+    public static class ClientException extends Exception {
+        public ClientException() {
+        }
+
+        public ClientException(String message) {
+            super(message);
+        }
+
+        public ClientException(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+        public ClientException(Throwable cause) {
+            super(cause);
+        }
+
+        public ClientException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+            super(message, cause, enableSuppression, writableStackTrace);
+        }
     }
 
 }
