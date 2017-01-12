@@ -6,11 +6,14 @@ public class Cafe {
 
     private final Random random = new Random();
 
-    public void serve(Client client) throws Client.ClientException {
+    public void serve(Client client) throws Client.ClientException, Client.ClientExceptionNotACoffee {
         try{
-        client.drinkCoffee(generateCup());}
-        catch (Client.ClientException e){
-            throw new Client.ClientException(String.format("try catch all ex "));
+        client.drinkCoffee(generateCup());
+
+
+        }
+        catch (Client.ClientExceptionNotACoffee e){
+            throw new Client.ClientExceptionNotACoffee(String.format(" %s Sorry but we do not have this drink make another selection %s", e.getMessage(), generateCup().getDrinkType()));
         }
 
     }
