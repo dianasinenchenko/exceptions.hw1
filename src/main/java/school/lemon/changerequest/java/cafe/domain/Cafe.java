@@ -7,7 +7,12 @@ public class Cafe {
     private final Random random = new Random();
 
     public void serve(Client client) throws Client.ClientException {
-        client.drinkCoffee(generateCup());
+        try{
+        client.drinkCoffee(generateCup());}
+        catch (Client.ClientException e){
+            throw new Client.ClientException(String.format("try catch all ex "));
+        }
+
     }
 
     private Drink generateCup() {
