@@ -9,15 +9,15 @@ public class Client {
 
     private final Random random = new Random();
 
-    public void drinkCoffee(Drink drink) throws ClientException, ClientExceptionNotACoffee {
+    public void drinkCoffee(Drink drink) throws ClientException, ClientExceptionNotACoffee, ClientExceptionTemperatureIsHot, ClientExceptionTemperatureIsCold {
         if (drink.getDrinkType() != DrinkType.COFFEE)
             throw new ClientExceptionNotACoffee(String.format("I wont %s  ", drink.getDrinkType()));
 
         else if (drink.getTemperature() < LOWEST_TEMPERATURE)
-            throw new ClientException(String.format("Looks like it's too cold... %d", drink.getTemperature()));
+            throw new ClientExceptionTemperatureIsCold(String.format("Looks like it's too cold... %d", drink.getTemperature()));
 
         else if (drink.getTemperature() > HIGHEST_TEMPERATURE)
-            throw new ClientException(String.format("Looks like it's too hot... %d", drink.getTemperature()));
+            throw new ClientExceptionTemperatureIsHot(String.format("Looks like it's too hot... %d", drink.getTemperature()));
 
         else if (random.nextInt(100) < 10) throw new ClientException(String.format("I don't like your Cafe!"));
 
@@ -70,5 +70,47 @@ public class Client {
         }
     }
 
+    public static class ClientExceptionTemperatureIsHot extends ClientException {
 
+        public ClientExceptionTemperatureIsHot() {
+        }
+
+        public ClientExceptionTemperatureIsHot(String message) {
+            super(message);
+        }
+
+        public ClientExceptionTemperatureIsHot(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+        public ClientExceptionTemperatureIsHot(Throwable cause) {
+            super(cause);
+        }
+
+        public ClientExceptionTemperatureIsHot(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+            super(message, cause, enableSuppression, writableStackTrace);
+        }
+    }
+
+    public static class ClientExceptionTemperatureIsCold extends ClientException {
+
+        public ClientExceptionTemperatureIsCold() {
+        }
+
+        public ClientExceptionTemperatureIsCold(String message) {
+            super(message);
+        }
+
+        public ClientExceptionTemperatureIsCold(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+        public ClientExceptionTemperatureIsCold(Throwable cause) {
+            super(cause);
+        }
+
+        public ClientExceptionTemperatureIsCold(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+            super(message, cause, enableSuppression, writableStackTrace);
+        }
+    }
 }
